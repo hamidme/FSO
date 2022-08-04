@@ -1,9 +1,17 @@
 import { useState } from 'react'
 
 const Statistics = (props) =>{
+  if (props.all === 0){
+    return (
+    <>
+      <h1>{props.text}</h1>
+      <h2>No feedback given</h2>
+    </>
+    )
+  }
   return(
     <>
-      <h1>Statistics</h1>
+      <h1>{props.text}</h1>
       <p>Good {props.good}</p>
       <p>Neutral {props.neutral}</p>
       <p>Bad {props.bad}</p>
@@ -30,11 +38,12 @@ function App() {
   const badClicker = () => {
     setbad(bad + 1)
   }
+  
 
   const all = good + neutral + bad
   const average = (neutral+good+bad)/3
   const positive = (all === 0 ? null : (good/all)*100)
-
+  
 
   return (
     <div>
@@ -45,13 +54,15 @@ function App() {
       <button onClick={badClicker}>bad</button>
 
       <Statistics
-        good = {good}
-        neutral = {neutral}
-        bad = {bad}
-        all = {all}
-        average = {average}
-        positive = {positive}
-      />
+      text = 'Statistics'
+      good = {good}
+      neutral = {neutral}
+      bad = {bad}
+      all = {all}
+      average = {average}
+      positive = {positive}
+    />
+      
     </div>
   );
 }
