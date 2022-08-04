@@ -18,7 +18,7 @@ function App() {
 
   const all = good + neutral + bad
   const average = (neutral+good+bad)/3
-  const positive = (all === 0 ? '' : (good/all)*100)
+  const positive = (all === 0 ? null : (good/all)*100)
 
 
   return (
