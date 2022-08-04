@@ -16,16 +16,27 @@ function App() {
     setbad(bad + 1)
   }
 
+  const all = good + neutral + bad
+  const average = (neutral+good+bad)/3
+  const positive = (all === 0 ? '' : (good/all)*100)
+
+
   return (
     <div>
       <h1>Give Feedback</h1>
+
       <button onClick={goodClicker}>good</button>
       <button onClick={neutralClicker}>neutral</button>
       <button onClick={badClicker}>bad</button>
+
       <h1>Statistics</h1>
+
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>All {all}</p>
+      <p>Average {average}</p>
+      <p>Positive {positive} %</p>
     </div>
   );
 }
