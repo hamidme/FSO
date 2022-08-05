@@ -11,9 +11,8 @@ const Button = ({onClick, text})=>{
 const StatisticLine = ({text, value, head, perc})=>{
   return(
     <>
-      <h1>{head}</h1>
-      <p>{text} {value} {perc}</p>
-      
+      {head}
+      {text} {value} {perc}
     </>
   )
 }
@@ -22,6 +21,7 @@ const Statistics = (props) =>{
   if (props.all === 0){
     return (
     <>
+      
       <h1>{props.text}</h1>
       <p>No feedback given</p>
     </>
@@ -29,13 +29,39 @@ const Statistics = (props) =>{
   }
   return(
     <>
-      <StatisticLine head = 'Statistics'/>
-      <StatisticLine text = 'Good' value = {props.good}/>
-      <StatisticLine text = 'Neutral' value = {props.neutral}/>
-      <StatisticLine text = 'Bad' value =  {props.bad} />
-      <StatisticLine text = 'All' value = {props.all} />
-      <StatisticLine text = "Average" value = {props.average} />
-      <StatisticLine text = "Positive" value = {props.positive} perc = '%' />
+      <table>
+        <thead>
+          <tr>
+            <td><h1><StatisticLine head = 'Statistics'/></h1></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><StatisticLine text = 'Good'/></td>
+            <td><StatisticLine value = {props.good}/></td>
+          </tr>
+          <tr>
+           <td><StatisticLine text = 'Neutral'/></td>
+           <td><StatisticLine value = {props.neutral}/></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text = 'Bad'/></td>
+            <td><StatisticLine value = {props.bad}/></td>
+          </tr>
+          <tr>
+           <td><StatisticLine text = 'All'/></td>
+           <td><StatisticLine value = {props.all}/></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text = 'Average'/></td>
+            <td><StatisticLine value = {props.average}/></td>
+          </tr>
+          <tr>
+           <td><StatisticLine text = 'Positive'/></td>
+           <td><StatisticLine value = {props.positive} perc = '%'/></td>
+          </tr>
+        </tbody>
+      </table>
     </>
   )
 }
@@ -56,12 +82,10 @@ function App() {
   const badClicker = () => {
     setbad(bad + 1)
   }
-  
 
   const all = good + neutral + bad
-  const average = (neutral+good+bad)/3
-  const positive = (all === 0 ? null : (good/all)*100)
-  
+  const average = ((neutral+good+bad)/3).toFixed(2)
+  const positive = (all === 0 ? null : ((good/all)*100).toFixed(1))
 
   return (
     <div>
