@@ -12,14 +12,34 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-  const anecLength = anecdotes.length
+  
+
+  //create an array of zeros.
+  //number of zero = number of items in the anecdotes list
+  const points = Array.from({length:anecdotes.length}, ()=>0)
+  
+  const [vote, setVote] = useState(points)
+    const clickToVote = ()=>{
+    setVote(oldVote => [
+      ...oldVote.slice(0,selected),
+      oldVote[selected]+1,
+      ...oldVote.slice(selected + 1)
+    ])
+
+  }
+  
+
   const selectAnecdote = ()=>{
-    setSelected(Math.floor(Math.random(1)*anecLength))
+    setSelected(Math.floor(Math.random(1)*anecdotes.length))
+    //setVote(copy[selected])
   }
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>has {vote[selected]} votes</p>
+      
+      <button onClick={clickToVote}>vote</button>
       <button onClick={selectAnecdote}>next anecdotes</button>
     </div>
   )
