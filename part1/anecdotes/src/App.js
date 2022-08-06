@@ -12,47 +12,46 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  //button to randomly select an anecdote based on its index
+  const ButtonSelectAnecdote = ()=>{
+    setSelected(Math.floor(Math.random(1)*anecdotes.length))
+  }
   
-
   //create an array of zeros.
   //number of zero = number of items in the anecdotes list
   const points = Array.from({length:anecdotes.length}, ()=>0)
   
   const [vote, setVote] = useState(points)
-    const clickToVote = ()=>{
+  const ButtonClickToVote = ()=>{
     /*
     1. slice away everything before 0 till the number before
-       selected index, and destruct the remaining items
+       the selected index, and destruct the remaining items
        of the array into the new array.
     2. add 1 to the selected number and include it in the new array
        (it'll replace the selected number).
     3. slice away everything before the selected index + 1, and
         destruct the remaining item of the array into the new array.
     */
-   //The update array (new array) will update the selected item at each
+   //The updated array (new array) will update the selected item at each
    //click and persists the previously updated item. 
     setVote(oldVote => [
       ...oldVote.slice(0,selected),
       oldVote[selected]+1,
       ...oldVote.slice(selected + 1)
     ])
-
+    //Anecdote with highest vote
   }
   
 
-  const selectAnecdote = ()=>{
-    setSelected(Math.floor(Math.random(1)*anecdotes.length))
-    //setVote(copy[selected])
-  }
-
+  //returned values
   return (
     <div>
       <p>{anecdotes[selected]}</p>
       <p>has {vote[selected]} votes</p>
       <p>has {Math.max(...vote)} votes</p>
       
-      <button onClick={clickToVote}>vote</button>
-      <button onClick={selectAnecdote}>next anecdotes</button>
+      <button onClick={ButtonClickToVote}>vote</button>
+      <button onClick={ButtonSelectAnecdote}>next anecdotes</button>
     </div>
   )
 }
