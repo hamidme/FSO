@@ -20,6 +20,17 @@ const App = () => {
   
   const [vote, setVote] = useState(points)
     const clickToVote = ()=>{
+    /*
+    1. slice away everything before 0 till the number before
+       selected index, and destruct the remaining items
+       of the array into the new array.
+    2. add 1 to the selected number and include it in the new array
+       (it'll replace the selected number).
+    3. slice away everything before the selected index + 1, and
+        destruct the remaining item of the array into the new array.
+    */
+   //The update array (new array) will update the selected item at each
+   //click and persists the previously updated item. 
     setVote(oldVote => [
       ...oldVote.slice(0,selected),
       oldVote[selected]+1,
@@ -38,6 +49,7 @@ const App = () => {
     <div>
       <p>{anecdotes[selected]}</p>
       <p>has {vote[selected]} votes</p>
+      <p>has {Math.max(...vote)} votes</p>
       
       <button onClick={clickToVote}>vote</button>
       <button onClick={selectAnecdote}>next anecdotes</button>
