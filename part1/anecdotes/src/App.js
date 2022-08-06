@@ -11,17 +11,26 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
   ]
    
+
+  //initial state: anecdote at index 0 is preselected
   const [selected, setSelected] = useState(0)
-  //button to randomly select an anecdote based on its index
+  
+  //change the current state by randomly select an anecdote
+  //based on its index
   const ButtonSelectAnecdote = ()=>{
+    //randomly select an anectode
     setSelected(Math.floor(Math.random(1)*anecdotes.length))
   }
-  
+///////////// --- IMPLEMENTING THE VOTE COUNTER --- //////////////////
   //create an array of zeros.
   //number of zero = number of items in the anecdotes list
   const points = Array.from({length:anecdotes.length}, ()=>0)
   
+  //set the initial vote to the array of points
+  //i.e vote = [0,0,0,0,0,0,0]
   const [vote, setVote] = useState(points)
+  
+  //click to increate the number of votes of a selected anecdote
   const ButtonClickToVote = ()=>{
     /*
     1. slice away everything before 0 till the number before
