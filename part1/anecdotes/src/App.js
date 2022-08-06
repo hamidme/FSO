@@ -29,7 +29,7 @@ const App = () => {
   //set the initial vote to the array of points
   //i.e vote = [0,0,0,0,0,0,0]
   const [vote, setVote] = useState(points)
-  
+
   //click to increate the number of votes of a selected anecdote
   const ButtonClickToVote = ()=>{
     /*
@@ -48,19 +48,28 @@ const App = () => {
       oldVote[selected]+1,
       ...oldVote.slice(selected + 1)
     ])
-    //Anecdote with highest vote
+    
   }
-  
+
+  //Anecdote with highest vote
+  const showHighest = {
+    anecVote :Math.max(...vote),
+    anecdote :anecdotes[vote.indexOf(Math.max(...vote))]
+  }
+  //showHighestVoteAnecdote.anecVote === 0? '':
 
   //returned values
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>has {vote[selected]} votes</p>
-      <p>has {Math.max(...vote)} votes</p>
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[selected]} <br/>has {vote[selected]} votes</p>
       
       <button onClick={ButtonClickToVote}>vote</button>
       <button onClick={ButtonSelectAnecdote}>next anecdotes</button>
+
+      <h1>Anecdote with most votes</h1>
+      <p>{showHighest.anecVote === 0 ? '': 
+      `${showHighest.anecdote} has ${showHighest.anecVote} votes.`}</p>
     </div>
   )
 }
