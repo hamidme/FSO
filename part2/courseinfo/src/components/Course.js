@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './Header'
 import Contents from './Contents'
-//import Total from './Total'
+import Total from './Total'
 
 const Course = ({name, parts}) => {
   return (
@@ -11,7 +11,7 @@ const Course = ({name, parts}) => {
         <Contents key={items.id} {...items} />
         )
       }
-      {/*<Total parts = {parts} />*/}
+      {<Total parts = {parts} />}
     </div>
   )
 }

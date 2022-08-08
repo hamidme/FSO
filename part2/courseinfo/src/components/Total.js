@@ -1,10 +1,14 @@
 import React from 'react'
 
 const Total = ({parts}) => {
-  console.log(parts[0].exercises)
+  let sum = 0
+  for(let i of parts){
+    sum+=i.exercises
+  }
+ 
   return (
     <div>
-      <p>Number of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises} </p>
+      <p><strong>total of {sum} exercises</strong> </p>
     </div>
   )
 }
