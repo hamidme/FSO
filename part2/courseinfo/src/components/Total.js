@@ -1,10 +1,9 @@
 import React from 'react'
 
 const Total = ({parts}) => {
-  let sum = 0
-  for(let i of parts){
-    sum+=i.exercises
-  }
+  console.log(parts)
+
+  const sum = parts.reduce((prevSum, part) => (prevSum + part.exercises), 0)
  
   return (
     <div>
