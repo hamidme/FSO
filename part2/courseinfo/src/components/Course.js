@@ -4,7 +4,6 @@ import Contents from './Contents'
 //import Total from './Total'
 
 const Course = ({name, parts}) => {
-  console.log(parts)
   return (
     <div>
       <Header header = {name} />
