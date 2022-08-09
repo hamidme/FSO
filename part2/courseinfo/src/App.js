@@ -7,11 +7,14 @@ import Total from './components/Total'
 const App = () => {
   
     return(
+      // The most stubborn part :)
+
+      // keys are added but still generating a key-related error!
       courses.map((course, id) => 
         <>
           <Course key={id} header={course.name}/>
-            {course.parts.map((content, id) =>
-              <Course key={id} content ={content.name}
+            {course.parts.map((content) =>
+              <Course key={content.id} content ={content.name}
                 exercise ={content.exercises}/>)}
 
             {<Total key={course.id}
