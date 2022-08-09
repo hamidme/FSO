@@ -1,17 +1,12 @@
 import React from 'react'
 import Header from './Header'
 import Contents from './Contents'
-import Total from './Total'
 
-const Course = ({name, parts}) => {
+const Course = ({header, content, exercise}) => {
   return (
     <div>
-      <Header header = {name} />
-      {parts.map((items) =>
-        <Contents key={items.id} {...items} />
-        )
-      }
-      {<Total parts = {parts} />}
+      <Header header = {header}/>
+      <Contents content = {content} exercise = {exercise}/>
     </div>
   )
 }
