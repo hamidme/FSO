@@ -1,14 +1,13 @@
 import React from 'react'
+import Content from './Contents'
 import Header from './Header'
-import Contents from './Contents'
 
-const Course = ({header, content, exercise}) => {
+const Course = ({header, parts}) => {
   return (
-    <div>
+    <>
       <Header header = {header}/>
-      <Contents content = {content} exercise = {exercise}/>
-    </div>
+      <Content part = {parts}/>
+    </>
   )
 }
-
 export default Course

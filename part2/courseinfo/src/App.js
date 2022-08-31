@@ -1,26 +1,35 @@
+import Typography from '@mui/material/Typography'
+import Data from './components/Data'
 import Course from './components/Course'
-import courses from './components/data'
-import Total from './components/Total'
+import { Box } from '@mui/system';
 
+function App() {
+  return (
+    <Box sx={{margin:'20px auto', width:'80%'}}>
+      <Typography variant="h3"
+      sx={
+          {
+            color:"white", 
+            backgroundColor:'orange',
+            padding: '10px',
+            textAlign: 'center',
+            borderRadius: '5px'
 
-
-const App = () => {
-  
-    return(
-      // The most stubborn part :)
-
-      // keys are added but still generating a key-related error!
-      courses.map((course, id) => 
-        <>
-          <Course key={id} header={course.name}/>
-            {course.parts.map((content) =>
-              <Course key={content.id} content ={content.name}
-                exercise ={content.exercises}/>)}
-
-            {<Total key={course.id}
-                exercise ={course}/>}   
-        </>
+          }
+        }
+      >
+        Web Development Curriculum
+      </Typography>
+      {Data.map((course)=>
+        <Course 
+            key={course.id}
+            header={course.name}
+            parts = {course.parts}
+        />
         )
-    )
+      }
+    </Box>
+  );
 }
-export default App
+
+export default App;

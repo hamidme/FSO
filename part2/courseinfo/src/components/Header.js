@@ -1,11 +1,9 @@
+import { Typography } from '@mui/material'
 import React from 'react'
 
 const Header = ({header}) => {
-  
   return (
-    <div>
-      <h1>{header}</h1>
-    </div>
+    <Typography variant='h5' paddingTop='20px'>{header}</Typography>
   )
 }
 
