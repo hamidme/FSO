@@ -45,10 +45,17 @@ export const MyForm = () => {
       number: newNumber,
       id:addName.length + 1
     }
-    setAddName([...addName, contactObject])
-    setNewName('')
-    setNewNumber('')
-    setNewImg('')
+
+    const usernameList = contactList.map((list)=>(list.username))
+    if (usernameList.includes(newName)){
+        alert(`${newName} is already added to phonebook`)
+    } else {
+      setAddName([...addName, contactObject])
+      setNewName('')
+      setNewNumber('')
+      setNewImg('')
+    }
+    console.log(addName, addName.includes('Muri'))
   }
 
   const handleNewName = (event)=>{
