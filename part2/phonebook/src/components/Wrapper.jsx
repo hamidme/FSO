@@ -1,8 +1,7 @@
 import styled from '@emotion/styled'
 import {Box, colors, Typography } from '@mui/material'
 import React from 'react'
-//import { ContactList } from './ContactList';
-import { PersonForm } from './PersonForm';
+import { Filter } from './Filter';
 
 
 const StyledBox = styled(Box)({
@@ -16,10 +15,11 @@ const StyledBox = styled(Box)({
 })
 
 const Wrapper = () => {
+  
   return (
     <StyledBox>
       <Typography variant="h3" color="initial" sx={{alignSelf: 'center', marginBottom: '10px'}}>My Contacts</Typography>
-      <PersonForm/>
+      <Filter/>
     </StyledBox>
   )
 }
