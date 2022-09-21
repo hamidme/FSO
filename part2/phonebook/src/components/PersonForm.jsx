@@ -17,6 +17,7 @@ const StyledTextField = styled(TextField)({
 
 export const PersonForm = ({addContact, setaddContact}) => {
   const [newName, setNewName] = useState('')
+  const [newFname, setNewFname] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newImg, setNewImg] = useState('')
   
@@ -24,6 +25,7 @@ export const PersonForm = ({addContact, setaddContact}) => {
     event.preventDefault()
     const contactObject = {
       username: newName,
+      firstname : newFname,
       img:newImg,
       number: newNumber,
       id:addContact.length + 1
@@ -35,6 +37,7 @@ export const PersonForm = ({addContact, setaddContact}) => {
     } else {
       setaddContact([...addContact, contactObject])
       setNewName('')
+      setNewFname('')
       setNewNumber('')
       setNewImg('')
     }
@@ -42,6 +45,10 @@ export const PersonForm = ({addContact, setaddContact}) => {
 
   const handleNewName = (event)=>{
     setNewName(event.target.value)
+  }
+
+  const handleNewFname = (event)=>{
+    setNewFname(event.target.value)
   }
 
   const handleNewNumber = (event)=>{
@@ -59,10 +66,12 @@ export const PersonForm = ({addContact, setaddContact}) => {
       </InputLabel>
       <form onSubmit={handleaddContact}>
         <StyledInnerBox>
-          <StyledTextField onChange={handleNewName} value={newName} type='text' id="name"  size='small' variant="outlined" label='Name' />
-          <StyledTextField onChange={handleNewNumber} value={newNumber} type='phone' id="phone"  size='small' variant="outlined" label='Number' />
+          <StyledTextField onChange={handleNewName} value={newName} type='text' id="name"  size='small' variant="outlined" label='First Name' />
+          <StyledTextField onChange={handleNewFname} value={newFname} type='text' id="fname"  size='small' variant="outlined" label='Last Name' />
+          
         </StyledInnerBox>
         <StyledInnerBox>
+        <StyledTextField onChange={handleNewNumber} value={newNumber} type='phone' id="phone"  size='small' variant="outlined" label='Number' />
           <StyledTextField onChange={handleNewImg} value={newImg} type='link' id="avatar"  size='small' variant="outlined" label='Avatar URL' />
         </StyledInnerBox>
         <StyledInnerBox>

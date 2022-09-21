@@ -3,7 +3,9 @@ import { Box, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { ContactList } from './ContactList'
 import { PersonForm } from './PersonForm'
-import contactList from './Data'
+//import contactList from './Data'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 const StyledInnerBox = styled(Box)({
   display: 'flex',
@@ -19,7 +21,18 @@ const StyledTextField = styled(TextField)({
 
 export const Filter = () => {
   const [filterItem, setFilterItem] = useState('')
-  const [addContact, setaddContact] = useState(contactList)
+  const [addContact, setaddContact] = useState([])
+  //console.log(addContact)
+
+  useEffect(
+    () => {
+      axios
+        .get('http://localhost:3001/contactList')
+        .then(response => {
+          setaddContact(response.data)
+        })
+    }, []
+  )
  
   const handleFilterItem = (event) => {
     let value = event.target.value
@@ -32,7 +45,7 @@ export const Filter = () => {
         <StyledTextField
           onChange={handleFilterItem}
           id="outlined-basic"
-          label="Search by name"
+          label="Search by name or number"
           size='small'
           variant="outlined"
           value={filterItem}

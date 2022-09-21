@@ -15,12 +15,15 @@ export const ContactList = ({filterItem, addContact}) => {
         <List>
           {
             addContact.map((nameList)=>
-              nameList.username.toLowerCase().includes(filterItem.toLowerCase()) ?
+              nameList.username.toLowerCase().includes(filterItem.toLowerCase()) ||
+              nameList.firstname.toLowerCase().includes(filterItem.toLowerCase()) ||
+              nameList.number.includes(filterItem) ?
               (<ListItem key={nameList.id} sx={{padding: "0 15px"}}>
                 <ListItemAvatar>
-                  <Avatar alt="Remy Sharp" src={nameList.img} />
+                  <Avatar alt={nameList.username} src={nameList.img} />
                 </ListItemAvatar>
-              <ListItemText  primary={nameList.username} secondary={nameList.number} />
+              <ListItemText  primary={nameList.username} secondary= {nameList.firstname}/>
+              <ListItemText  primary={nameList.number} />
               </ListItem>) : null
             )
           }
