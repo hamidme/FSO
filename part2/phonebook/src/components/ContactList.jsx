@@ -10,9 +10,9 @@ export const ContactList = ({filterItem, addContact}) => {
           flexDirection: 'column',
         }
       }>
-
         <Typography variant='h5' sx={{padding: "0 15px"}}>Contact List</Typography>
         <List>
+        
           {
             addContact.map((nameList)=>
               nameList.username.toLowerCase().includes(filterItem.toLowerCase()) ||
@@ -27,6 +27,7 @@ export const ContactList = ({filterItem, addContact}) => {
               </ListItem>) : null
             )
           }
+        
         </List>
       </Box>
     </>
