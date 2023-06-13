@@ -1,83 +1,60 @@
-import styled from '@emotion/styled'
-import { Box, Button, InputLabel, TextField, Typography } from '@mui/material'
-import React from 'react'
-import { useState } from 'react'
+import React from "react";
+import { styled } from "styled-components";
 
-const StyledInnerBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-  margin: ' 5px 0 10px 10px',
-  
-})
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+const Input = styled.input`
+  margin: 10px 0;
+  font-size: 1rem;
+  padding: 10px;
+  border: transparent;
+  border-radius: 6px;
+`;
+const Button = styled.button`
+  margin: 10px 0;
+  font-size: 1.5rem;
+  padding: 8px;
+  border: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #606060;
+  color: #fff;
+`;
 
-const StyledTextField = styled(TextField)({
-  margin: '0 5px',
-  width: '100%'
-})
-
-export const PersonForm = ({addContact, setaddContact}) => {
-  const [newName, setNewName] = useState('')
-  const [newFname, setNewFname] = useState('')
-  const [newNumber, setNewNumber] = useState('')
-  const [newImg, setNewImg] = useState('')
-  
-  const handleaddContact = (event)=>{
-    event.preventDefault()
-    const contactObject = {
-      username: newName,
-      firstname : newFname,
-      img:newImg,
-      number: newNumber,
-      id:addContact.length + 1
-    }
-
-    const usernameList = addContact.map((list)=>(list.username))
-    if (usernameList.includes(newName)){
-        alert(`${newName} is already added to phonebook`)
-    } else {
-      setaddContact([...addContact, contactObject])
-      setNewName('')
-      setNewFname('')
-      setNewNumber('')
-      setNewImg('')
-    }
-  }
-
-  const handleNewName = (event)=>{
-    setNewName(event.target.value)
-  }
-
-  const handleNewFname = (event)=>{
-    setNewFname(event.target.value)
-  }
-
-  const handleNewNumber = (event)=>{
-    setNewNumber(event.target.value)
-  }
-
-  const handleNewImg = (event)=>{
-    setNewImg(event.target.value)
-  }
-
+const PersonForm = ({
+  addNewUser,
+  nameInput,
+  contactInput,
+  setContactInput,
+  setNameInput,
+}) => {
   return (
     <>
-      <InputLabel>
-        <Typography variant='body' sx={{padding:' 0 15px'}}>Add a New Name and Number</Typography>
-      </InputLabel>
-      <form onSubmit={handleaddContact}>
-        <StyledInnerBox>
-          <StyledTextField onChange={handleNewName} value={newName} type='text' id="name"  size='small' variant="outlined" label='First Name' />
-          <StyledTextField onChange={handleNewFname} value={newFname} type='text' id="fname"  size='small' variant="outlined" label='Last Name' />
-          
-        </StyledInnerBox>
-        <StyledInnerBox>
-        <StyledTextField onChange={handleNewNumber} value={newNumber} type='phone' id="phone"  size='small' variant="outlined" label='Number' />
-          <StyledTextField onChange={handleNewImg} value={newImg} type='link' id="avatar"  size='small' variant="outlined" label='Avatar URL' />
-        </StyledInnerBox>
-        <StyledInnerBox>
-          <Button type='submit' variant="contained" sx={{width: '100%'}}>Add</Button>
-        </StyledInnerBox>
-      </form>
+      <Form onSubmit={addNewUser}>
+        <Input
+          value={nameInput}
+          onChange={(e) => {
+            setNameInput(e.target.value);
+          }}
+          type="text"
+          id="name"
+          placeholder="Type contact's name"
+        />
+
+        <Input
+          value={contactInput}
+          onChange={(e) => {
+            setContactInput(e.target.value);
+          }}
+          type="tel"
+          placeholder="Type contact's phone number"
+        />
+        <Button type="submit">Add</Button>
+      </Form>
     </>
-  )
-}
+  );
+};
+
+export default PersonForm;

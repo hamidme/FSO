@@ -1,66 +1,31 @@
-import styled from '@emotion/styled'
-import { Box, TextField } from '@mui/material'
-import React, { useState } from 'react'
-import { ContactList } from './ContactList'
-import { PersonForm } from './PersonForm'
-//import contactList from './Data'
-import axios from 'axios'
-import { useEffect } from 'react'
+import React from "react";
+import { styled } from "styled-components";
 
-const StyledInnerBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-  margin: ' 5px 0 10px 10px',
-  
-})
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Input = styled.input`
+  margin: 10px 0;
+  font-size: 1rem;
+  padding: 10px;
+  border: transparent;
+  border-radius: 6px;
+`;
 
-const StyledTextField = styled(TextField)({
-  margin: '0 5px',
-  width: '100%'
-})
-
-export const Filter = () => {
-  const [filterItem, setFilterItem] = useState('')
-  const [addContact, setaddContact] = useState([])
-  //console.log(addContact)
-
-  useEffect(
-    () => {
-      axios
-        .get('http://localhost:3001/contactList')
-        .then(response => {
-          setaddContact(response.data)
-        })
-    }, []
-  )
- 
-  const handleFilterItem = (event) => {
-    let value = event.target.value
-    setFilterItem(value)
-  }
-
+const Filter = ({ query, setQuery }) => {
   return (
-    <>
-      <StyledInnerBox>
-        <StyledTextField
-          onChange={handleFilterItem}
-          id="outlined-basic"
-          label="Search by name or number"
-          size='small'
-          variant="outlined"
-          value={filterItem}
-        />
-      </StyledInnerBox>
-
-      <PersonForm
-        addContact = {addContact}
-        setaddContact = {setaddContact}
+    <Container>
+      <Input
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+        placeholder="Filter by name or number"
+        type="text"
       />
+    </Container>
+  );
+};
 
-      <ContactList
-        filterItem = {filterItem}
-        addContact = {addContact}
-      />
-    </>
-  )
-}
+export default Filter;
