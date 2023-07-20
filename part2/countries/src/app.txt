@@ -1,0 +1,162 @@
+import axios from "axios";
+import "./app.css";
+import React, { useEffect, useState } from "react";
+import { styled } from "styled-components";
+
+const url = "https://studies.cs.helsinki.fi/restcountries/api/all";
+
+const Container = styled.div`
+  width: 60%;
+  margin: 10px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f2f2f2;
+  border: solid 1px #e9e9e9;
+  border-radius: 10px;
+`;
+
+const InputDiv = styled.div`
+  input {
+    padding: 10px;
+    border-radius: 50px;
+    outline: none;
+    border: solid #d5d4d4 1px;
+    width: 97%;
+    background-color: #ffffff;
+  }
+`;
+
+const CountryList = styled.div`
+  margin-top: 20px;
+
+  p {
+    background-color: #ffffff;
+    margin: 5px;
+    padding: 5px 15px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+  }
+  button {
+    border-color: transparent;
+    color: blue;
+    cursor: pointer;
+    background-color: #fff;
+  }
+`;
+
+const SingleCountry = styled(CountryList)`
+  margin-top: 5px;
+  p {
+    padding: 5px 0;
+    background-color: transparent;
+  }
+`;
+
+export default function App() {
+  const [countryList, setCountryList] = useState([]);
+  const [userInput, setUserInput] = useState("");
+  const [toggler, setToggler] = useState({});
+  const [singleName, setSingleName] = useState();
+
+  useEffect(() => {
+    axios(url).then((res) => {
+      setCountryList(res.data);
+    });
+  }, []);
+
+  const handleToggler = (name) => {
+    setToggler({
+      ...toggler,
+      [name]: !toggler[name],
+    });
+    setSingleName(getCountryOtherInfo());
+  };
+
+  const getCountryName = countryList
+    .filter((n) => {
+      const commonName = n.name.common.toLowerCase();
+      return commonName.includes(userInput);
+    })
+    .map(({ name }) => {
+      return (
+        <div>
+          <p key={name.common}>
+            {name.common}
+            <button onClick={() => handleToggler(name.common)}>
+              {toggler[name.common] ? "hide" : "show"}
+            </button>
+          </p>
+          {toggler && singleName}
+        </div>
+      );
+    });
+
+  const getCountryOtherInfo = () =>
+    countryList
+      .filter((n) => {
+        const commonName = n.name.common.toLowerCase();
+        return commonName.includes(userInput);
+      })
+      .map((info) => {
+        return (
+          <>
+            <h2 key={info.index}>{info.name.common}</h2>
+            <p key={info.index}>Capital City: {info.capital}</p>
+            <p key={info.index}>Area: {info.area}</p>
+            <h2>Language:</h2>
+            {info.languages !== undefined &&
+              Object.values(info.languages).map((l, i) => <p key={i}>{l}</p>)}
+            <img src={info.flags.png} alt={`${info.name.common} flag`} />
+          </>
+        );
+      });
+
+  const displayCountryName = () => {
+    if (userInput !== "" && getCountryName.length > 10) {
+      return <h3>Too many matches, speciy another filter</h3>;
+    } else if (userInput !== "" && getCountryName.length > 1) {
+      return (
+        <>
+          <CountryList>{userInput && getCountryName}</CountryList>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <SingleCountry>{userInput && getCountryOtherInfo()}</SingleCountry>
+        </>
+      );
+    }
+  };
+
+  const filterUser = (e) => {
+    setUserInput(e.target.value);
+  };
+
+  const handleForm = (e) => {
+    e.preventDefault();
+  };
+
+  return (
+    <>
+      <Container>
+        <form onSubmit={handleForm}>
+          <InputDiv>
+            <input
+              type="text"
+              placeholder="Find Countries"
+              onChange={filterUser}
+            />
+          </InputDiv>
+        </form>
+
+        {displayCountryName()}
+      </Container>
+    </>
+  );
+}
